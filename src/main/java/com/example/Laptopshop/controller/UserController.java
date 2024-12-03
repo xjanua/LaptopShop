@@ -35,13 +35,48 @@ public class UserController {
         return "admin/user/table-user";
     }
 
-    // Hiển thị chi tiết người dùng.
+    // Hiển thị view chi tiết 1 người dùng. (Nút View)
     @RequestMapping("/admin/user/{id}")
     public String getUserDetailPage(Model model, @PathVariable Long id) {
         User user = this.userService.getUserbyId(id);
-        model.addAttribute("id", id);
         model.addAttribute("user", user);
         return "admin/user/userDetail";
+    }
+
+    // Hiển thị view Update user.
+    @RequestMapping("/admin/user/update/{id}")
+    public String getupdateUserPage(Model model, @PathVariable Long id) {
+        User currentUser = this.userService.getUserbyId(id);
+        model.addAttribute("user", currentUser);
+        return "admin/user/userUpdate";
+    }
+
+    // Nhận user từ view updateUser và lưu vào sql
+    @PostMapping("/admin/user/update")
+    public String postUpdateUser(Model model, @ModelAttribute("user") User user) {
+        User currentUser = this.userService.getUserbyId(user.getId());
+        if (currentUser != null) {
+            currentUser.setFullname(user.getFullname());
+            currentUser.setAddress(user.getAddress());
+            currentUser.setPhone(user.getPhone());
+            this.userService.handleSavUser(currentUser);
+        }
+        return "redirect:/admin/user";
+    }
+
+    // Hiển thị view delete User
+    @RequestMapping("/admin/user/delete/{id}")
+    public String getdeleteUserPage(Model model, @PathVariable Long id) {
+        model.addAttribute("id", id);
+        model.addAttribute("newUser", new User());
+        return "admin/user/deleteUser";
+    }
+
+    // Nhận user từ view deleteUser và xoá khỏi sql
+    @PostMapping("/admin/user/delete")
+    public String postdeleteUser(Model model, @ModelAttribute("user") User user) {
+        this.userService.deleteUser(user.getId());
+        return "redirect:/admin/user";
     }
 
     // Dùng để tạo ra trang html đăng kí người dùng
@@ -51,9 +86,10 @@ public class UserController {
         return "admin/user/create";
     }
 
+    // Nhận user từ view Create và lưu vào sql
     @PostMapping("/admin/user/create")
-    public String createUserPage(Model model, @ModelAttribute("newUser") User user) {
-        this.userService.SaveUser(user);
+    public String postcreateUser(Model model, @ModelAttribute("newUser") User user) {
+        this.userService.handleSavUser(user);
         return "redirect:/admin/user";
     }
 }

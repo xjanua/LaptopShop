@@ -27,9 +27,12 @@ public class UserService {
         return this.userRespository.findById(id);
     }
 
-    public User SaveUser(User user) {
+    public User handleSavUser(User user) {
         User Client = this.userRespository.save(user);
         return Client;
     }
 
+    public void deleteUser(long id) {
+        this.userRespository.deleteById(id);
+    }
 }
