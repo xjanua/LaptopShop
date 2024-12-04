@@ -27,6 +27,20 @@ public class UserController {
         return "hello";
     }
 
+    // Dùng để tạo ra trang html đăng kí người dùng
+    @RequestMapping("/admin/user/create")
+    public String getcreateUserPage(Model model) {
+        model.addAttribute("newUser", new User());
+        return "admin/user/createUser";
+    }
+
+    // Nhận user từ view Create và lưu vào sql
+    @PostMapping("/admin/user/create")
+    public String postcreateUser(Model model, @ModelAttribute("newUser") User user) {
+        this.userService.handleSavUser(user);
+        return "redirect:/admin/user";
+    }
+
     // Hiển thị ra bảng danh sách người dùng.
     @RequestMapping("/admin/user")
     public String getUserPage(Model model) {
@@ -76,20 +90,6 @@ public class UserController {
     @PostMapping("/admin/user/delete")
     public String postdeleteUser(Model model, @ModelAttribute("user") User user) {
         this.userService.deleteUser(user.getId());
-        return "redirect:/admin/user";
-    }
-
-    // Dùng để tạo ra trang html đăng kí người dùng
-    @RequestMapping("/admin/user/create")
-    public String getcreateUserPage(Model model) {
-        model.addAttribute("newUser", new User());
-        return "admin/user/create";
-    }
-
-    // Nhận user từ view Create và lưu vào sql
-    @PostMapping("/admin/user/create")
-    public String postcreateUser(Model model, @ModelAttribute("newUser") User user) {
-        this.userService.handleSavUser(user);
         return "redirect:/admin/user";
     }
 }
