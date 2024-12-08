@@ -30,12 +30,12 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @RequestMapping("/")
-    public String getHomePage(Model model) {
-        model.addAttribute("eric", "test");
-        model.addAttribute("HoiDanIt", "From controller with model");
-        return "hello";
-    }
+    // @RequestMapping("/")
+    // public String getHomePage(Model model) {
+    // model.addAttribute("eric", "test");
+    // model.addAttribute("HoiDanIt", "From controller with model");
+    // return "hello";
+    // }
 
     // Dùng để tạo ra trang html đăng kí người dùng
     @GetMapping("/admin/user/create")
