@@ -11,7 +11,7 @@
                 <meta name="description" content="" />
                 <meta name="author" content="" />
                 <title>User Create</title>
-                <link href="/css/styles.css" rel="stylesheet" />
+                <link href="/admin/css/styles.css" rel="stylesheet" />
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
                 <script>
                     $(document).ready(() => {
@@ -47,26 +47,48 @@
                                             <hr />
                                             <form:form method="post" action="/admin/user/create"
                                                 modelAttribute="newUser" class="row" enctype="multipart/form-data">
+
                                                 <div class="row mb-3">
                                                     <div class="col-12 col-md-6">
+                                                        <c:set var="errorEmail">
+                                                            <form:errors path="email" cssClass="invalid-feedback" />
+                                                        </c:set>
                                                         <label class="form-label">Email:</label>
-                                                        <form:input class="form-control" path="email" />
+                                                        <form:input
+                                                            class="form-control ${not empty errorEmail ? 'is-invalid' : ''}"
+                                                            path="email" />
+                                                        ${errorEmail}
                                                     </div>
+
                                                     <div class="col-12 col-md-6">
+                                                        <c:set var="errorPassword">
+                                                            <form:errors path="password" cssClass="invalid-feedback" />
+                                                        </c:set>
                                                         <label class="form-label">Password:</label>
-                                                        <form:input class="form-control" path="password" />
+                                                        <form:input
+                                                            class="form-control ${not empty errorPassword ? 'is-invalid' : ''}"
+                                                            path="password" />
+                                                        ${errorPassword}
                                                     </div>
                                                 </div>
+
                                                 <div class="row mb-3">
                                                     <div class="col-12 col-md-6">
                                                         <label class="form-label">Phone number:</label>
                                                         <form:input class="form-control" path="phone" />
                                                     </div>
                                                     <div class="col-12 col-md-6">
+                                                        <c:set var="errorFullname">
+                                                            <form:errors path="fullname" cssClass="invalid-feedback" />
+                                                        </c:set>
                                                         <label class="form-label">Full Name:</label>
-                                                        <form:input class="form-control" path="fullname" />
+                                                        <form:input
+                                                            class="form-control ${not empty errorFullname ? 'is-invalid' : ''}"
+                                                            path="fullname" />
+                                                        ${errorFullname}
                                                     </div>
                                                 </div>
+
                                                 <div class="row mb-3">
                                                     <div class="col-12">
                                                         <label class="form-label">Address:</label>
@@ -110,7 +132,7 @@
                 </div>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
                     crossorigin="anonymous"></script>
-                <script src="js/scripts.js"></script>
+                <script src="/admin/js/scripts.js"></script>
             </body>
 
             </html>

@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 import com.example.Laptopshop.domain.User;
 import com.example.Laptopshop.services.UploadService;
 import com.example.Laptopshop.services.UserService;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class UserController {
@@ -46,8 +49,19 @@ public class UserController {
 
     // Nhận user từ view Create và lưu vào sql
     @PostMapping("/admin/user/create")
-    public String postcreateUser(Model model, @ModelAttribute("newUser") User user,
+    public String postcreateUser(Model model, @ModelAttribute("newUser") @Valid User user,
+            BindingResult newUserBindingResult,
             @RequestParam("avatarFile") MultipartFile file) {
+
+        // Validate (Các dòng comment chỉ xuất ở terminal)
+        // List<FieldError> errors = newUserBindingResult.getFieldErrors();
+        // for (FieldError error : errors) {
+        // System.out.println(error.getField() + " - " + error.getDefaultMessage());
+        // }
+
+        if (newUserBindingResult.hasErrors()) {
+            return "/admin/user/create";
+        }
 
         String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
         String hashPassword = this.passwordEncoder.encode(user.getPassword());
