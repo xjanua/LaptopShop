@@ -10,7 +10,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                 <meta name="description" content="" />
                 <meta name="author" content="" />
-                <title>User Details with ${id}</title>
+                <title>Delete User</title>
                 <link href="/admin/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
             </head>
@@ -27,35 +27,32 @@
                                 <h1 class="mt-4">Manage User</h1>
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                                    <li class="breadcrumb-item active"><a href="/admin/user">User</a></li>
-                                    <li class="breadcrumb-item active">Detail</li>
+                                    <li class="breadcrumb-item active"><a href="/admin/product">Product</a></li>
+                                    <li class="breadcrumb-item active">Delete</li>
                                 </ol>
-                                <div class="mt-5">
+                                <div class="container mt-5">
                                     <div class="row">
                                         <div class="col-12 mx-auto">
                                             <div class="d-flex justify-content-between">
-                                                <h3>User detail with id ${id}</h3>
+                                                <h3>Delete the User with ID: ${id}</h3>
                                             </div>
                                             <hr>
-                                            <div class="card" style="width: 60%;">
-                                                <div class="card-header">
-                                                    User information
+                                            <div class="alert alert-danger">
+                                                Are you sure you want to delete this user? This action cannot be undone.
+                                            </div>
+                                            <form:form method="post" action="/admin/product/delete"
+                                                modelAttribute="product">
+                                                <div class="mb-3" style="display: none;">
+                                                    <label class="form-label">ID:</label>
+                                                    <form:input value="${id}" type="text" class="form-control"
+                                                        path="id" />
                                                 </div>
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item">id: ${user.id}</li>
-                                                    <li class="list-group-item">Full name: ${user.fullname}</li>
-                                                    <li class="list-group-item">Email: ${user.email}</li>
-                                                    <li class="list-group-item">Address: ${user.address}</li>
-                                                    <li class="list-group-item">Role: ${user.role.name}</li>
-                                                </ul>
-                                            </div>
-                                            <!-- Nút quay lại -->
-                                            <div class="mt-3">
-                                                <a href="/admin/user" class="btn btn-primary">Back</a>
-                                            </div>
+                                                <button class="btn btn-danger">Confirm</button>
+                                            </form:form>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                         </main>
                         <jsp:include page="../layout/footer.jsp" />
                     </div>

@@ -70,7 +70,7 @@ public class UserController {
         // Get đầu tiên trả ra đối tượng role. get thứ 2 trả ra Name của Role
         user.setRole(this.userService.getRoleByName(user.getRole().getName()));
         // Save
-        this.userService.handleSavUser(user);
+        this.userService.handleSaveUser(user);
         return "redirect:/admin/user";
     }
 
@@ -95,18 +95,20 @@ public class UserController {
     public String getupdateUserPage(Model model, @PathVariable Long id) {
         User currentUser = this.userService.getUserbyId(id);
         model.addAttribute("user", currentUser);
-        return "admin/user/Update";
+        return "admin/user/update";
     }
 
     // Nhận user từ view updateUser và lưu vào sql
     @PostMapping("/admin/user/update")
-    public String postUpdateUser(Model model, @ModelAttribute("user") User user) {
+    public String postUpdateUser(Model model, @ModelAttribute("user") User user,
+            BindingResult newUserBindingResult) {
+
         User currentUser = this.userService.getUserbyId(user.getId());
         if (currentUser != null) {
             currentUser.setFullname(user.getFullname());
             currentUser.setAddress(user.getAddress());
             currentUser.setPhone(user.getPhone());
-            this.userService.handleSavUser(currentUser);
+            this.userService.handleSaveUser(currentUser);
         }
         return "redirect:/admin/user";
     }

@@ -24,4 +24,12 @@ public class ProductService {
         return this.productRepository.findAll();
     }
 
+    public Product getProductByID(long id) {
+        Product getProduct = this.productRepository.findById(id);
+        return getProduct;
+    }
+
+    public void deleteProduct(long id) {
+        this.productRepository.deleteById(id);
+    }
 }

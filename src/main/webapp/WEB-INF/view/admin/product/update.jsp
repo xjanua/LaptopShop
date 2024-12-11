@@ -14,6 +14,13 @@
                 <script>
                     $(document).ready(() => {
                         const avatarFile = $("#imgProduct");
+                        const orgImage = "${product.image}"
+                        if (orgImage) {
+                            const urlImage = "/images/product/" + orgImage;
+                            $("#productPreview").attr("src", urlImage);
+                            $("#productPreview").css({ "display": "block" });
+                        }
+
                         avatarFile.change(function (e) {
                             const imgURL = URL.createObjectURL(e.target.files[0]);
                             $("#productPreview").attr("src", imgURL);
@@ -35,17 +42,20 @@
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
                                     <li class="breadcrumb-item active"><a href="/admin/product">Product</a></li>
-                                    <li class="breadcrumb-item active">Create</li>
+                                    <li class="breadcrumb-item active">Update</li>
                                 </ol>
                                 <div class="mt-5">
                                     <div class="row">
                                         <div class="col-md-6 col-12 mx-auto">
-                                            <h3>Create a Product</h3>
+                                            <h3>Update Product</h3>
                                             <hr />
                                             <!-- Form bắt đầu -->
-                                            <form:form method="post" action="/admin/product/create"
-                                                modelAttribute="newProduct" class="row" enctype="multipart/form-data">
-
+                                            <form:form method="post" action="/admin/product/update"
+                                                modelAttribute="product" class="row" enctype="multipart/form-data">
+                                                <div class="mb-3" style="display: none;">
+                                                    <label class="form-label">id:</label>
+                                                    <form:input type="text" class="form-control" path="id" />
+                                                </div>
                                                 <div class="row mb-3">
                                                     <div class="col-12 col-md-6">
                                                         <c:set var="errorName">
@@ -109,11 +119,11 @@
                                                         <label class="form-label">Factory:</label>
                                                         <form:select class="form-select" path="factory">
                                                             <form:option value="Apple">Apple (MacBook)</form:option>
-                                                            <form:option value="Asus">Asus</form:option>
-                                                            <form:option value="Lenovo">Lenovo</form:option>
+                                                            <form:option value="Apple">Asus</form:option>
+                                                            <form:option value="Apple">Lenovo</form:option>
                                                             <form:option value="Dell">Dell</form:option>
-                                                            <form:option value="LG">LG</form:option>
-                                                            <form:option value="Acer">Acer</form:option>
+                                                            <form:option value="Apple">LG</form:option>
+                                                            <form:option value="HP">Acer</form:option>
                                                         </form:select>
                                                     </div>
                                                     <!-- Target -->
@@ -139,13 +149,13 @@
 
                                                 <div class="row mb-3">
                                                     <div class="col-12 col-md-6">
-                                                        <img style="max-height: 250px; display: none;"
-                                                            alt="product preview" id="productPreview" />
+                                                        <img style="max-height: 250px;" alt="product preview"
+                                                            id="productPreview" />
                                                     </div>
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <button type="submit" class="btn btn-primary">Create</button>
+                                                    <button type="submit" class="btn btn-primary">Update</button>
                                                 </div>
 
                                             </form:form>

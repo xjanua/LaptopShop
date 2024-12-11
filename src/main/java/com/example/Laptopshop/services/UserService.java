@@ -31,7 +31,7 @@ public class UserService {
         return this.userRespository.findById(id);
     }
 
-    public User handleSavUser(User user) {
+    public User handleSaveUser(User user) {
         User Client = this.userRespository.save(user);
         return Client;
     }
