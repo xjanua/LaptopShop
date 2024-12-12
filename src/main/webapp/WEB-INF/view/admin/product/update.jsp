@@ -119,11 +119,12 @@
                                                         <label class="form-label">Factory:</label>
                                                         <form:select class="form-select" path="factory">
                                                             <form:option value="Apple">Apple (MacBook)</form:option>
-                                                            <form:option value="Apple">Asus</form:option>
-                                                            <form:option value="Apple">Lenovo</form:option>
+                                                            <form:option value="Asus">Asus</form:option>
+                                                            <form:option value="Lenovo">Lenovo</form:option>
                                                             <form:option value="Dell">Dell</form:option>
-                                                            <form:option value="Apple">LG</form:option>
-                                                            <form:option value="HP">Acer</form:option>
+                                                            <form:option value="LG">LG</form:option>
+                                                            <form:option value="Acer">Acer</form:option>
+                                                            <form:option value="TUF">TUF</form:option>
                                                         </form:select>
                                                     </div>
                                                     <!-- Target -->
