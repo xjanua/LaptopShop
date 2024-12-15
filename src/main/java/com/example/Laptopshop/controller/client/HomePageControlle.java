@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,8 @@ import com.example.Laptopshop.domain.User;
 import com.example.Laptopshop.domain.DTO.RegisterDTO;
 import com.example.Laptopshop.services.ProductService;
 import com.example.Laptopshop.services.UserService;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class HomePageControlle {
@@ -41,13 +44,24 @@ public class HomePageControlle {
     }
 
     @PostMapping("/register")
-    public String postRegister(@ModelAttribute("registerUser") RegisterDTO registerDTO) {
+    public String postRegister(@ModelAttribute("registerUser") @Valid RegisterDTO registerDTO,
+            BindingResult bindingResult) {
+
+        // // Validate (Các dòng comment chỉ xuất ở terminal)
+        // List<FieldError> errors = bindingResult.getFieldErrors();
+        // for (FieldError error : errors) {
+        // System.out.println(error.getField() + " - " + error.getDefaultMessage());
+        // }
+
+        if (bindingResult.hasErrors()) {
+            return "client/auth/register";
+        }
+
         User user = this.userService.registerDTOtoUser(registerDTO);
 
         String hashPassword = this.passwordEncoder.encode(user.getPassword());
 
         user.setPassword(hashPassword);
-        // Get đầu tiên trả ra đối tượng role. get thứ 2 trả ra Name của Role
         user.setRole(this.userService.getRoleByName("USER"));
         // Save
         this.userService.handleSaveUser(user);
@@ -58,5 +72,10 @@ public class HomePageControlle {
     public String getLoginPage(Model model) {
         model.addAttribute("registerUser", new RegisterDTO());
         return "client/auth/login";
+    }
+
+    @GetMapping("/access-deny")
+    public String getdenyPage(Model model) {
+        return "client/auth/deny";
     }
 }

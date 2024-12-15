@@ -2,6 +2,8 @@ package com.example.Laptopshop.domain;
 
 import java.util.List;
 
+import com.example.Laptopshop.services.validator.StrongPassword;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

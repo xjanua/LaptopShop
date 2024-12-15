@@ -25,7 +25,7 @@ public class UserService {
     }
 
     public List<User> getAllUserbyEmail(String email) {
-        return this.userRespository.findByEmail(email);
+        return this.userRespository.findOneByEmail(email);
     }
 
     public User getUserbyId(long id) {
@@ -51,5 +51,13 @@ public class UserService {
         user.setEmail(registerDTO.getEmail());
         user.setPassword(registerDTO.getPassWord());
         return user;
+    }
+
+    public boolean checkEmailExit(String email) {
+        return this.userRespository.existsByEmail(email);
+    }
+
+    public User getUserByEmail(String Email) {
+        return this.userRespository.findByEmail(Email);
     }
 }
