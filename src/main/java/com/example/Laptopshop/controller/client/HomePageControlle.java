@@ -16,6 +16,8 @@ import com.example.Laptopshop.domain.DTO.RegisterDTO;
 import com.example.Laptopshop.services.ProductService;
 import com.example.Laptopshop.services.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -31,9 +33,12 @@ public class HomePageControlle {
     }
 
     @GetMapping("/")
-    public String getHomePage(Model model) {
+    public String getHomePage(Model model, HttpServletRequest request) {
         List<Product> products = this.productService.getAllProducts();
         model.addAttribute("ListProduct", products);
+
+        HttpSession session = request.getSession(false);
+
         return "client/homepage/show";
     }
 
