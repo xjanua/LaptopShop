@@ -8,11 +8,5 @@ import com.example.Laptopshop.domain.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    Product save(Product product);
-
-    List<Product> findAll();
-
-    Product findById(long id);
-
-    void deleteById(Long id);
+    // Không cần khai báo lại các phương thức mặc định
 }
