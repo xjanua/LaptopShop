@@ -20,6 +20,7 @@ public class Cart {
     private long id;
     @Min(value = 0)
     private int sum;
+
     // user_id
     @OneToOne()
     @JoinColumn(name = "user_id")

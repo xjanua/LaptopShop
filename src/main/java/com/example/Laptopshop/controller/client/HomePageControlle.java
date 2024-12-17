@@ -32,6 +32,7 @@ public class HomePageControlle {
         this.passwordEncoder = passwordEncoder;
     }
 
+    //Hiển thị ra homePage
     @GetMapping("/")
     public String getHomePage(Model model, HttpServletRequest request) {
         List<Product> products = this.productService.getAllProducts();
@@ -42,21 +43,17 @@ public class HomePageControlle {
         return "client/homepage/show";
     }
 
+    //Hiển thị ra trang đăng kí người dùng
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
         model.addAttribute("registerUser", new RegisterDTO());
         return "client/auth/register";
     }
 
+    //Xử lí yêu cầu đăng kí. Lưu vào sql
     @PostMapping("/register")
     public String postRegister(@ModelAttribute("registerUser") @Valid RegisterDTO registerDTO,
             BindingResult bindingResult) {
-
-        // // Validate (Các dòng comment chỉ xuất ở terminal)
-        // List<FieldError> errors = bindingResult.getFieldErrors();
-        // for (FieldError error : errors) {
-        // System.out.println(error.getField() + " - " + error.getDefaultMessage());
-        // }
 
         if (bindingResult.hasErrors()) {
             return "client/auth/register";
@@ -73,14 +70,22 @@ public class HomePageControlle {
         return "redirect:/login";
     }
 
+    //Hiển thị ra trang login
     @GetMapping("/login")
     public String getLoginPage(Model model) {
         model.addAttribute("registerUser", new RegisterDTO());
         return "client/auth/login";
     }
 
+    //Xử lí người dùng vô trang lỗi
     @GetMapping("/access-deny")
     public String getdenyPage(Model model) {
         return "client/auth/deny";
+    }
+
+    //Hiển thị ra trang giỏ hàng
+    @GetMapping("/cart")
+    public String getCartPage(Model model) {
+        return "client/Cart/show";
     }
 }

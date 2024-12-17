@@ -47,9 +47,11 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
     protected void clearAuthenticationAttributes(HttpServletRequest request, Authentication authentication) {
         HttpSession session = request.getSession(false);
+
         if (session == null) {
             return;
         }
+
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 
         // getEmail
@@ -62,6 +64,8 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
             session.setAttribute("avatar", user.getAvatar());
             session.setAttribute("id", user.getId());
             session.setAttribute("email", user.getEmail());
+            int sum = user.getCart().getSum();
+            session.setAttribute("sum", sum);
         }
     }
 
